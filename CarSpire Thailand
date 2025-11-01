@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carspire - Automotive Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 69, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 149, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            animation: ambientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes ambientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff4500, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a.settings-icon {
+            font-size: 28px;
+            margin-left: -15px;
+            filter: brightness(0) invert(1);
+        }
+
+        nav a.settings-icon:hover {
+            transform: rotate(90deg);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4500, #ffd700);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 80px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 24px;
+            color: #aaa;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            background: linear-gradient(135deg, #ff4500, #ff8c00);
+            color: #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Featured Section */
+        .featured {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            margin-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #0095ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .documentary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .doc-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 69, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(255, 69, 0, 0.2);
+        }
+
+        .doc-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #ff4500, #0095ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .doc-card:hover .doc-image::before {
+            left: 100%;
+        }
+
+        .doc-content {
+            padding: 30px;
+        }
+
+        .doc-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .doc-content p {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .watch-btn {
+            padding: 10px 25px;
+            background: rgba(255, 69, 0, 0.2);
+            border: 1px solid #ff4500;
+            color: #ff4500;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .watch-btn:hover {
+            background: #ff4500;
+            color: #fff;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 50px;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff4500, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        /* Glow effects */
+        .glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .glow-1 {
+            top: 10%;
+            left: 10%;
+            background: radial-gradient(circle, #ff4500, transparent);
+        }
+
+        .glow-2 {
+            bottom: 10%;
+            right: 10%;
+            background: radial-gradient(circle, #0095ff, transparent);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 48px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            nav ul {
+                gap: 20px;
+            }
+            
+            .featured {
+                padding: 60px 20px;
+            }
+        }
+
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings-modal.active {
+            display: flex;
+        }
+
+        .settings-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .settings-title {
+            font-size: 28px;
+            background: linear-gradient(135deg, #ff4500, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff4500;
+            transform: rotate(90deg);
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-label {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .language-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 69, 0, 0.2);
+            border-color: #ff4500;
+        }
+
+        .language-btn.active {
+            background: rgba(255, 69, 0, 0.3);
+            border-color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 class="settings-title" data-lang="settings">Settings</h2>
+                <button class="close-btn" onclick="closeSettings()">×</button>
+            </div>
+            <div class="settings-section">
+                <label class="settings-label" data-lang="language">Language</label>
+                <div class="language-grid">
+                    <button class="language-btn active" onclick="changeLanguage('en')">
+                        🇬🇧 English
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('th')">
+                        🇹🇭 ไทย
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('zh')">
+                        🇨🇳 中文
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('es')">
+                        🇪🇸 Español
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('fr')">
+                        🇫🇷 Français
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('de')">
+                        🇩🇪 Deutsch
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('ja')">
+                        🇯🇵 日本語
+                    </button>
+                    <button class="language-btn" onclick="changeLanguage('ko')">
+                        🇰🇷 한국어
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <span class="logo-text">CARSPIRETHAILAND</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#playlists">Playlists</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="settings-icon" onclick="openSettings(); return false;">⚙️</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>CARSPIRETHAILAND</h1>
+            <p>Your Ultimate Destination for Automotive Content on YouTube</p>
+            <button class="cta-button" onclick="window.open('https://www.youtube.com/@CarSpireThailand', '_blank')">Subscribe on YouTube</button>
+        </div>
+    </section>
+
+    <section class="featured" id="playlists">
+        <h2 class="section-title">Video Categories</h2>
+        <div class="documentary-grid">
+            <div class="doc-card">
+                <div class="doc-image">🏎️</div>
+                <div class="doc-content">
+                    <h3>Speed & Performance</h3>
+                    <p>Experience the thrill of high-performance vehicles, supercars, and adrenaline-pumping track action.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBZ6RD4k01_P2KbHa8nAM_DD', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+            <div class="doc-card">
+                <div class="doc-image">⚡</div>
+                <div class="doc-content">
+                    <h3>Electric & Hybrid</h3>
+                    <p>Discover the future of mobility with cutting-edge electric vehicles and hybrid technology.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBZjp_IDAy03UGPW4vRakEQv', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+            <div class="doc-card">
+                <div class="doc-image">🔧</div>
+                <div class="doc-content">
+                    <h3>Innovation & Tech</h3>
+                    <p>Explore groundbreaking automotive innovations, new technologies, and industry breakthroughs.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBbmyWP99SuXqrBmHFP2Xi8Y', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+            <div class="doc-card">
+                <div class="doc-image">🏁</div>
+                <div class="doc-content">
+                    <h3>Classic & Vintage</h3>
+                    <p>Journey through automotive history with timeless classics and vintage car restorations.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBYRZewQbu0iWDsJqPkYu-dk', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+            <div class="doc-card">
+                <div class="doc-image">🚙</div>
+                <div class="doc-content">
+                    <h3>Trucks & SUVs</h3>
+                    <p>Explore powerful trucks, versatile SUVs, and off-road capable vehicles built for adventure.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBa6ZeFVdrtwwhwr-gS45mIk', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+            <div class="doc-card">
+                <div class="doc-image">📊</div>
+                <div class="doc-content">
+                    <h3>Reviews & Comparisons</h3>
+                    <p>In-depth car reviews, detailed comparisons, and expert buying guides to help you choose.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBYovG2IRz5tipUHg-Qhspny', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+            <div class="doc-card">
+                <div class="doc-image">🌟</div>
+                <div class="doc-content">
+                    <h3>Auto Shows & Events</h3>
+                    <p>Get exclusive coverage of the biggest auto shows, launches, and automotive events worldwide.</p>
+                    <button class="watch-btn" onclick="window.open('https://www.youtube.com/playlist?list=PLlob7uYo6qBbIpNnfDTWe6vi-jR4NK9wY', '_blank')">Watch Playlist</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured" id="about">
+        <h2 class="section-title">เกี่ยวกับเรา</h2>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            <p style="font-size: 18px; line-height: 1.8; color: #ccc; text-align: center; margin-bottom: 30px;">
+                สวัสดีครับ พวกเราสองคนขอต้อนรับทุกท่านเข้าสู่ช่วงแบ่งปันความรู้เรื่องรถยนต์ วันนี้เราจะมาร่วมพูดคุยและแลกเปลี่ยนข้อมูลดี ๆ เกี่ยวกับรถ ไม่ว่าจะเป็นเรื่องการดูแลรักษาเบื้องต้น เทคนิคการขับขี่อย่างปลอดภัย รวมไปถึงเกร็ดความรู้เล็ก ๆ น้อย ๆ ที่หลายคนอาจยังไม่เคยรู้มาก่อน
+            </p>
+            <p style="font-size: 18px; line-height: 1.8; color: #ccc; text-align: center;">
+                เราหวังว่าคลิปนี้จะเป็นประโยชน์กับพี่ ๆ น้อง ๆ ทุกคนที่รักและสนใจเรื่องรถยนต์ ไม่ว่าคุณจะเป็นมือใหม่ที่เพิ่งเริ่มต้นใช้รถ หรือเป็นคนที่ขับมานานแล้วก็ยังสามารถนำความรู้จากเราไปปรับใช้ในชีวิตประจำวันได้ครับ
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 CarspireThailand YouTube Channel. All rights reserved. Fueling passion for automotive excellence.</p>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                home: "Home",
+                playlists: "Playlists",
+                about: "About",
+                contact: "Contact",
+                settings: "Settings",
+                language: "Language",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "Your Ultimate Destination for Automotive Content on YouTube",
+                subscribeBtn: "Subscribe on YouTube",
+                videoCategories: "Video Categories",
+                speedTitle: "Speed & Performance",
+                speedDesc: "Experience the thrill of high-performance vehicles, supercars, and adrenaline-pumping track action.",
+                electricTitle: "Electric & Hybrid",
+                electricDesc: "Discover the future of mobility with cutting-edge electric vehicles and hybrid technology.",
+                innovationTitle: "Innovation & Tech",
+                innovationDesc: "Explore groundbreaking automotive innovations, new technologies, and industry breakthroughs.",
+                classicTitle: "Classic & Vintage",
+                classicDesc: "Journey through automotive history with timeless classics and vintage car restorations.",
+                trucksTitle: "Trucks & SUVs",
+                trucksDesc: "Explore powerful trucks, versatile SUVs, and off-road capable vehicles built for adventure.",
+                reviewsTitle: "Reviews & Comparisons",
+                reviewsDesc: "In-depth car reviews, detailed comparisons, and expert buying guides to help you choose.",
+                eventsTitle: "Auto Shows & Events",
+                eventsDesc: "Get exclusive coverage of the biggest auto shows, launches, and automotive events worldwide.",
+                watchBtn: "Watch Playlist",
+                aboutTitle: "About Us",
+                aboutText1: "Hello everyone! We welcome you to our automotive knowledge-sharing platform. Today we'll discuss and exchange great information about cars, including basic maintenance, safe driving techniques, and little-known facts that many people may not have known before.",
+                aboutText2: "We hope this content will be useful to everyone who loves and is interested in cars. Whether you're a beginner who just started using a car or someone who has been driving for a long time, you can apply the knowledge from us to your daily life.",
+                footer: "CarspireThailand YouTube Channel. All rights reserved. Fueling passion for automotive excellence."
+            },
+            th: {
+                home: "หน้าหลัก",
+                playlists: "เพลย์ลิสต์",
+                about: "เกี่ยวกับเรา",
+                contact: "ติดต่อ",
+                settings: "ตั้งค่า",
+                language: "ภาษา",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "จุดหมายปลายทางสูงสุดสำหรับเนื้อหารถยนต์บน YouTube",
+                subscribeBtn: "สมัครสมาชิก YouTube",
+                videoCategories: "หมวดหมู่วิดีโอ",
+                speedTitle: "ความเร็วและประสิทธิภาพ",
+                speedDesc: "สัมผัสความตื่นเต้นกับรถยนต์สมรรถนะสูง ซูเปอร์คาร์ และการแข่งขันสุดมันส์",
+                electricTitle: "ไฟฟ้าและไฮบริด",
+                electricDesc: "ค้นพบอนาคตของการเดินทางด้วยรถยนต์ไฟฟ้าและเทคโนโลยีไฮบริดล้ำสมัย",
+                innovationTitle: "นวัตกรรมและเทคโนโลยี",
+                innovationDesc: "สำรวจนวัตกรรมยานยนต์ที่ล้ำสมัย เทคโนโลยีใหม่ และความก้าวหน้าของอุตสาหกรรม",
+                classicTitle: "คลาสสิกและวินเทจ",
+                classicDesc: "เดินทางผ่านประวัติศาสตร์รถยนต์กับคลาสสิกอมตะและการบูรณะรถวินเทจ",
+                trucksTitle: "รถกระบะและ SUV",
+                trucksDesc: "สำรวจรถกระบะที่ทรงพลัง SUV อเนกประสงค์ และรถออฟโรดสำหรับการผจญภัย",
+                reviewsTitle: "รีวิวและเปรียบเทียบ",
+                reviewsDesc: "รีวิวรถยนต์เชิงลึก การเปรียบเทียบโดยละเอียด และคำแนะนำจากผู้เชี่ยวชาญ",
+                eventsTitle: "งานแสดงรถและกิจกรรม",
+                eventsDesc: "ติดตามงานแสดงรถยนต์ใหญ่ที่สุด การเปิดตัวรถใหม่ และกิจกรรมยานยนต์ทั่วโลก",
+                watchBtn: "ดูเพลย์ลิสต์",
+                aboutTitle: "เกี่ยวกับเรา",
+                aboutText1: "สวัสดีครับ พวกเราสองคนขอต้อนรับทุกท่านเข้าสู่ช่วงแบ่งปันความรู้เรื่องรถยนต์ วันนี้เราจะมาร่วมพูดคุยและแลกเปลี่ยนข้อมูลดี ๆ เกี่ยวกับรถ ไม่ว่าจะเป็นเรื่องการดูแลรักษาเบื้องต้น เทคนิคการขับขี่อย่างปลอดภัย รวมไปถึงเกร็ดความรู้เล็ก ๆ น้อย ๆ ที่หลายคนอาจยังไม่เคยรู้มาก่อน",
+                aboutText2: "เราหวังว่าคลิปนี้จะเป็นประโยชน์กับพี่ ๆ น้อง ๆ ทุกคนที่รักและสนใจเรื่องรถยนต์ ไม่ว่าคุณจะเป็นมือใหม่ที่เพิ่งเริ่มต้นใช้รถ หรือเป็นคนที่ขับมานานแล้วก็ยังสามารถนำความรู้จากเราไปปรับใช้ในชีวิตประจำวันได้ครับ",
+                footer: "ช่อง YouTube CarspireThailand สงวนลิขสิทธิ์ จุดประกายความหลงใหลในรถยนต์"
+            },
+            zh: {
+                home: "首页",
+                playlists: "播放列表",
+                about: "关于我们",
+                contact: "联系",
+                settings: "设置",
+                language: "语言",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "您在 YouTube 上的终极汽车内容目的地",
+                subscribeBtn: "订阅 YouTube",
+                videoCategories: "视频分类",
+                speedTitle: "速度与性能",
+                speedDesc: "体验高性能车辆、超级跑车和令人肾上腺素飙升的赛道动作的刺激",
+                electricTitle: "电动和混合动力",
+                electricDesc: "探索尖端电动汽车和混合动力技术的未来出行方式",
+                innovationTitle: "创新与技术",
+                innovationDesc: "探索突破性的汽车创新、新技术和行业突破",
+                classicTitle: "经典与复古",
+                classicDesc: "通过永恒的经典和复古车修复来探索汽车历史",
+                trucksTitle: "卡车和SUV",
+                trucksDesc: "探索强大的卡车、多功能SUV和越野冒险车辆",
+                reviewsTitle: "评测与对比",
+                reviewsDesc: "深入的汽车评测、详细对比和专家购车指南",
+                eventsTitle: "车展与活动",
+                eventsDesc: "独家报道全球最大的车展、新车发布和汽车活动",
+                watchBtn: "观看播放列表",
+                aboutTitle: "关于我们",
+                aboutText1: "大家好！欢迎来到我们的汽车知识分享平台。今天我们将讨论和交流有关汽车的精彩信息，包括基本维护、安全驾驶技巧以及许多人可能不知道的小知识。",
+                aboutText2: "我们希望这些内容对所有热爱和关注汽车的人都有用。无论您是刚开始用车的新手，还是已经驾驶多年的老手，都可以将我们的知识应用到日常生活中。",
+                footer: "CarspireThailand YouTube 频道。保留所有权利。点燃对汽车的热情。"
+            },
+            es: {
+                home: "Inicio",
+                playlists: "Listas",
+                about: "Acerca de",
+                contact: "Contacto",
+                settings: "Configuración",
+                language: "Idioma",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "Tu Destino Definitivo para Contenido Automotriz en YouTube",
+                subscribeBtn: "Suscribirse a YouTube",
+                videoCategories: "Categorías de Video",
+                speedTitle: "Velocidad y Rendimiento",
+                speedDesc: "Experimenta la emoción de vehículos de alto rendimiento, superdeportivos y acción de pista llena de adrenalina",
+                electricTitle: "Eléctricos e Híbridos",
+                electricDesc: "Descubre el futuro de la movilidad con vehículos eléctricos y tecnología híbrida de vanguardia",
+                innovationTitle: "Innovación y Tecnología",
+                innovationDesc: "Explora innovaciones automotrices revolucionarias, nuevas tecnologías y avances de la industria",
+                classicTitle: "Clásicos y Vintage",
+                classicDesc: "Viaja a través de la historia automotriz con clásicos atemporales y restauraciones de autos vintage",
+                trucksTitle: "Camionetas y SUVs",
+                trucksDesc: "Explora camionetas potentes, SUVs versátiles y vehículos todoterreno para la aventura",
+                reviewsTitle: "Reseñas y Comparaciones",
+                reviewsDesc: "Reseñas profundas de autos, comparaciones detalladas y guías de compra de expertos",
+                eventsTitle: "Shows y Eventos",
+                eventsDesc: "Cobertura exclusiva de los mayores shows de autos, lanzamientos y eventos automotrices mundiales",
+                watchBtn: "Ver Lista",
+                aboutTitle: "Sobre Nosotros",
+                aboutText1: "¡Hola a todos! Te damos la bienvenida a nuestra plataforma de intercambio de conocimientos automotrices. Hoy discutiremos e intercambiaremos excelente información sobre autos, incluyendo mantenimiento básico, técnicas de conducción segura y datos poco conocidos que muchas personas pueden no haber sabido antes.",
+                aboutText2: "Esperamos que este contenido sea útil para todos los que aman y están interesados en los autos. Ya seas un principiante que acaba de comenzar a usar un auto o alguien que ha estado conduciendo durante mucho tiempo, puedes aplicar el conocimiento de nosotros a tu vida diaria.",
+                footer: "Canal de YouTube CarspireThailand. Todos los derechos reservados. Alimentando la pasión por la excelencia automotriz."
+            },
+            fr: {
+                home: "Accueil",
+                playlists: "Listes",
+                about: "À propos",
+                contact: "Contact",
+                settings: "Paramètres",
+                language: "Langue",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "Votre Destination Ultime pour le Contenu Automobile sur YouTube",
+                subscribeBtn: "S'abonner à YouTube",
+                videoCategories: "Catégories Vidéo",
+                speedTitle: "Vitesse et Performance",
+                speedDesc: "Vivez le frisson des véhicules haute performance, des supercars et de l'action sur piste pleine d'adrénaline",
+                electricTitle: "Électrique et Hybride",
+                electricDesc: "Découvrez l'avenir de la mobilité avec des véhicules électriques et une technologie hybride de pointe",
+                innovationTitle: "Innovation et Technologie",
+                innovationDesc: "Explorez les innovations automobiles révolutionnaires, les nouvelles technologies et les percées de l'industrie",
+                classicTitle: "Classiques et Vintage",
+                classicDesc: "Voyagez à travers l'histoire automobile avec des classiques intemporels et des restaurations de voitures vintage",
+                trucksTitle: "Camions et SUV",
+                trucksDesc: "Explorez des camions puissants, des SUV polyvalents et des véhicules tout-terrain pour l'aventure",
+                reviewsTitle: "Critiques et Comparaisons",
+                reviewsDesc: "Critiques approfondies de voitures, comparaisons détaillées et guides d'achat d'experts",
+                eventsTitle: "Salons et Événements",
+                eventsDesc: "Couverture exclusive des plus grands salons automobiles, lancements et événements automobiles dans le monde",
+                watchBtn: "Voir la Liste",
+                aboutTitle: "À Propos de Nous",
+                aboutText1: "Bonjour à tous ! Nous vous souhaitons la bienvenue sur notre plateforme de partage de connaissances automobiles. Aujourd'hui, nous discuterons et échangerons d'excellentes informations sur les voitures, y compris l'entretien de base, les techniques de conduite sûres et les faits peu connus que beaucoup de gens ne connaissaient peut-être pas auparavant.",
+                aboutText2: "Nous espérons que ce contenu sera utile à tous ceux qui aiment et s'intéressent aux voitures. Que vous soyez un débutant qui vient de commencer à utiliser une voiture ou quelqu'un qui conduit depuis longtemps, vous pouvez appliquer les connaissances de nous à votre vie quotidienne.",
+                footer: "Chaîne YouTube CarspireThailand. Tous droits réservés. Alimenter la passion pour l'excellence automobile."
+            },
+            de: {
+                home: "Startseite",
+                playlists: "Playlisten",
+                about: "Über uns",
+                contact: "Kontakt",
+                settings: "Einstellungen",
+                language: "Sprache",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "Ihr Ultimatives Ziel für Automobilinhalte auf YouTube",
+                subscribeBtn: "YouTube Abonnieren",
+                videoCategories: "Video-Kategorien",
+                speedTitle: "Geschwindigkeit & Leistung",
+                speedDesc: "Erleben Sie den Nervenkitzel von Hochleistungsfahrzeugen, Supersportwagen und adrenalingeladener Rennstrecken-Action",
+                electricTitle: "Elektro & Hybrid",
+                electricDesc: "Entdecken Sie die Zukunft der Mobilität mit modernsten Elektrofahrzeugen und Hybridtechnologie",
+                innovationTitle: "Innovation & Technologie",
+                innovationDesc: "Erkunden Sie bahnbrechende Automobilinnovationen, neue Technologien und Branchendurchbrüche",
+                classicTitle: "Klassiker & Vintage",
+                classicDesc: "Reisen Sie durch die Automobilgeschichte mit zeitlosen Klassikern und Vintage-Autorestaurierungen",
+                trucksTitle: "Trucks & SUVs",
+                trucksDesc: "Erkunden Sie leistungsstarke Trucks, vielseitige SUVs und geländegängige Fahrzeuge für Abenteuer",
+                reviewsTitle: "Tests & Vergleiche",
+                reviewsDesc: "Ausführliche Autotests, detaillierte Vergleiche und Expertenkaufberatung",
+                eventsTitle: "Automessen & Events",
+                eventsDesc: "Exklusive Berichterstattung über die größten Automessen, Produkteinführungen und Automobilveranstaltungen weltweit",
+                watchBtn: "Playlist Ansehen",
+                aboutTitle: "Über Uns",
+                aboutText1: "Hallo allerseits! Wir heißen Sie auf unserer Plattform zum Austausch von Automobilwissen willkommen. Heute werden wir großartige Informationen über Autos diskutieren und austauschen, einschließlich grundlegender Wartung, sicherer Fahrtechniken und wenig bekannter Fakten, die viele Menschen möglicherweise noch nicht kannten.",
+                aboutText2: "Wir hoffen, dass dieser Inhalt für alle nützlich sein wird, die Autos lieben und sich dafür interessieren. Egal, ob Sie ein Anfänger sind, der gerade erst mit dem Auto begonnen hat, oder jemand, der schon lange fährt, Sie können das Wissen von uns in Ihrem täglichen Leben anwenden.",
+                footer: "CarspireThailand YouTube-Kanal. Alle Rechte vorbehalten. Leidenschaft für automotive Exzellenz entfachen."
+            },
+            ja: {
+                home: "ホーム",
+                playlists: "プレイリスト",
+                about: "概要",
+                contact: "お問い合わせ",
+                settings: "設定",
+                language: "言語",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "YouTubeで自動車コンテンツの究極の目的地",
+                subscribeBtn: "YouTubeを購読",
+                videoCategories: "ビデオカテゴリー",
+                speedTitle: "スピード＆パフォーマンス",
+                speedDesc: "ハイパフォーマンス車両、スーパーカー、アドレナリン全開のトラックアクションのスリルを体験",
+                electricTitle: "電気＆ハイブリッド",
+                electricDesc: "最先端の電気自動車とハイブリッド技術で未来のモビリティを発見",
+                innovationTitle: "イノベーション＆テクノロジー",
+                innovationDesc: "画期的な自動車イノベーション、新技術、業界の突破口を探索",
+                classicTitle: "クラシック＆ビンテージ",
+                classicDesc: "時代を超えたクラシックとビンテージカーの修復で自動車の歴史を旅する",
+                trucksTitle: "トラック＆SUV",
+                trucksDesc: "パワフルなトラック、多目的SUV、冒険のためのオフロード車を探索",
+                reviewsTitle: "レビュー＆比較",
+                reviewsDesc: "詳細な車のレビュー、詳細な比較、専門家の購入ガイド",
+                eventsTitle: "オートショー＆イベント",
+                eventsDesc: "世界最大のオートショー、新車発表会、自動車イベントの独占取材",
+                watchBtn: "プレイリストを見る",
+                aboutTitle: "私たちについて",
+                aboutText1: "皆さん、こんにちは！自動車知識共有プラットフォームへようこそ。今日は、基本的なメンテナンス、安全な運転テクニック、多くの人が以前は知らなかったかもしれない知られざる事実など、車に関する素晴らしい情報について話し合い、交換します。",
+                aboutText2: "このコンテンツが、車を愛し、興味を持っているすべての人に役立つことを願っています。車を使い始めたばかりの初心者でも、長年運転している人でも、私たちからの知識を日常生活に適用できます。",
+                footer: "CarspireThailand YouTubeチャンネル。全著作権所有。自動車の卓越性への情熱を燃やす。"
+            },
+            ko: {
+                home: "홈",
+                playlists: "재생목록",
+                about: "소개",
+                contact: "문의",
+                settings: "설정",
+                language: "언어",
+                heroTitle: "CARSPIRETHAILAND",
+                heroSubtitle: "YouTube에서 자동차 콘텐츠의 궁극적인 목적지",
+                subscribeBtn: "YouTube 구독",
+                videoCategories: "비디오 카테고리",
+                speedTitle: "속도 및 성능",
+                speedDesc: "고성능 차량, 슈퍼카, 아드레날린 넘치는 트랙 액션의 스릴을 경험하세요",
+                electricTitle: "전기 및 하이브리드",
+                electricDesc: "최첨단 전기 자동차 및 하이브리드 기술로 미래의 이동성을 발견하세요",
+                innovationTitle: "혁신 및 기술",
+                innovationDesc: "혁신적인 자동차 혁신, 신기술 및 산업 돌파구를 탐색하세요",
+                classicTitle: "클래식 및 빈티지",
+                classicDesc: "시대를 초월한 클래식과 빈티지 자동차 복원으로 자동차 역사를 여행하세요",
+                trucksTitle: "트럭 및 SUV",
+                trucksDesc: "강력한 트럭, 다목적 SUV 및 모험을 위한 오프로드 차량을 탐색하세요",
+                reviewsTitle: "리뷰 및 비교",
+                reviewsDesc: "심층적인 자동차 리뷰, 상세한 비교 및 전문가 구매 가이드",
+                eventsTitle: "오토쇼 및 이벤트",
+                eventsDesc: "전 세계 최대 오토쇼, 신차 출시 및 자동차 이벤트의 독점 커버리지",
+                watchBtn: "재생목록 보기",
+                aboutTitle: "우리에 대해",
+                aboutText1: "여러분 안녕하세요! 우리의 자동차 지식 공유 플랫폼에 오신 것을 환영합니다. 오늘 우리는 기본 유지보수, 안전 운전 기술 및 많은 사람들이 이전에 알지 못했을 수 있는 잘 알려지지 않은 사실을 포함하여 자동차에 대한 훌륭한 정보에 대해 토론하고 교환할 것입니다.",
+                aboutText2: "이 콘텐츠가 자동차를 사랑하고 관심이 있는 모든 사람에게 유용하기를 바랍니다. 자동차를 사용하기 시작한 초보자이든 오랫동안 운전해온 사람이든, 우리의 지식을 일상 생활에 적용할 수 있습니다.",
+                footer: "CarspireThailand YouTube 채널. 모든 권리 보유. 자동차 우수성에 대한 열정을 불태우다."
+            }
+        };
+
+        let currentLang = 'en';
+
+        // Open settings modal
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        // Close settings modal
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        // Change language
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.language-btn').classList.add('active');
+            
+            // Update all text content
+            const t = translations[lang];
+            
+            // Navigation
+            document.querySelector('nav a[href="#home"]').textContent = t.home;
+            document.querySelector('nav a[href="#playlists"]').textContent = t.playlists;
+            document.querySelector('nav a[href="#about"]').textContent = t.about;
+            document.querySelector('nav a[href="#contact"]').textContent = t.contact;
+            
+            // Hero section
+            document.querySelector('.hero-content h1').textContent = t.heroTitle;
+            document.querySelector('.hero-content p').textContent = t.heroSubtitle;
+            document.querySelector('.cta-button').textContent = t.subscribeBtn;
+            
+            // Video Categories section
+            document.querySelector('#playlists .section-title').textContent = t.videoCategories;
+            
+            const cards = document.querySelectorAll('.doc-card');
+            cards[0].querySelector('h3').textContent = t.speedTitle;
+            cards[0].querySelector('p').textContent = t.speedDesc;
+            cards[1].querySelector('h3').textContent = t.electricTitle;
+            cards[1].querySelector('p').textContent = t.electricDesc;
+            cards[2].querySelector('h3').textContent = t.innovationTitle;
+            cards[2].querySelector('p').textContent = t.innovationDesc;
+            cards[3].querySelector('h3').textContent = t.classicTitle;
+            cards[3].querySelector('p').textContent = t.classicDesc;
+            cards[4].querySelector('h3').textContent = t.trucksTitle;
+            cards[4].querySelector('p').textContent = t.trucksDesc;
+            cards[5].querySelector('h3').textContent = t.reviewsTitle;
+            cards[5].querySelector('p').textContent = t.reviewsDesc;
+            cards[6].querySelector('h3').textContent = t.eventsTitle;
+            cards[6].querySelector('p').textContent = t.eventsDesc;
+            
+            document.querySelectorAll('.watch-btn').forEach(btn => {
+                if (!btn.getAttribute('onclick').includes('openSettings')) {
+                    btn.textContent = t.watchBtn;
+                }
+            });
+            
+            // About section
+            document.querySelector('#about .section-title').textContent = t.aboutTitle;
+            const aboutPs = document.querySelectorAll('#about p');
+            aboutPs[0].textContent = t.aboutText1;
+            aboutPs[1].textContent = t.aboutText2;
+            
+            // Footer
+            document.querySelector('footer p').textContent = '© 2025 ' + t.footer;
+            
+            // Settings modal
+            document.querySelector('.settings-title').textContent = t.settings;
+            document.querySelector('.settings-label').textContent = t.language;
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Interactive glow that follows cursor
+        document.addEventListener('mousemove', (e) => {
+            const glows = document.querySelectorAll('.glow');
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            glows.forEach((glow, index) => {
+                const speed = (index + 1) * 0.05;
+                const newX = (x - window.innerWidth / 2) * speed;
+                const newY = (y - window.innerHeight / 2) * speed;
+                
+                glow.style.transform = `translate(${newX}px, ${newY}px)`;
+            });
+        });
+
+        // Button interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('settingsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSettings();
+            }
+        });
+    </script>}px)`;
+            });
+        });
+
+        // Button interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
