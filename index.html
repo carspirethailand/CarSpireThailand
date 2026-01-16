@@ -375,14 +375,57 @@
         }
 
         footer {
-            border-top: 1px solid var(--border-soft);
-        }
+            position: relative;
+            padding: 50px 20px;
+            margin-top: 80px;
+            margin-bottom: 0;
         
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+        
+            text-align: center;
+            border-top: 1px solid var(--border-soft);
+        
+            background:
+                linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.85)
+                );
+        }
+
+        footer p {
+            max-width: 900px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        .social-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 26px;
+            margin-bottom: 6px;
+        }
+                
         .social-footer a {
             background: var(--icon-bg);
             border: 1px solid var(--border-soft);
         }
-        
+
+        :root {
+            --text-muted: #6b6b6b;
+        }
+
+        p {
+            color: var(--text-muted);
+        }
+                        
         .social-footer svg {
             fill: var(--text-main);
         }
@@ -423,25 +466,71 @@
             animation-delay: 4s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
-        }
-
-        .settings-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            justify-content: center;
+        .theme-toggle {
+            display: flex;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+            gap: 14px;
+        
+            padding: 14px 26px;
+            border-radius: 999px;
+        
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        
+            border: 1px solid var(--border-soft);
+            background: var(--bg-secondary);
+            color: var(--text-main);
+        
+            box-shadow:
+                0 6px 18px rgba(0, 0, 0, 0.15);
+        
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+        
+        .toggle-indicator {
+            width: 42px;
+            height: 22px;
+            border-radius: 999px;
+            background: var(--border-soft);
+            position: relative;
+        }
+        
+        .toggle-indicator::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--text-main);
+            transition: all 0.3s ease;
+        }
+        
+                @keyframes float {
+                    0%, 100% { transform: translate(0, 0); }
+                    50% { transform: translate(50px, 50px); }
+                }
+        
+                .settings-modal {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    backdrop-filter: blur(10px);
+                    z-index: 2000;
+                    justify-content: center;
+                    align-items: center;
+                    opacity: 0;
+                    transition: opacity 0.35s cubic-bezier(0.32, 0.72, 0, 1);
         }
 
         .settings-modal.active {
@@ -453,6 +542,10 @@
             to {
                 opacity: 1;
             }
+        }
+
+        [data-theme="dark"] .toggle-indicator::after {
+            transform: translateX(20px);
         }
 
         .settings-content {
@@ -756,7 +849,10 @@
                 <button class="close-btn" onclick="closeSettings()">×</button>
             </div>
             <div class="settings-section">
-                <button onclick="toggleTheme()">Change Theme</button>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span>Change Theme</span>
+                    <div class="toggle-indicator"></div>
+                </button>
                 <label class="settings-label" data-lang="language">Language</label>
                 <div class="language-grid">
                     <button class="language-btn active" onclick="changeLanguage('en')">
@@ -1311,6 +1407,7 @@
 </script>
 </body>
 </html>
+
 
 
 
