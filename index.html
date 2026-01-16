@@ -6,6 +6,23 @@
     <title>Carspire Thailand</title>
     <link rel="icon" type="image/png" href="P.png">
     <style>
+        :root {
+            --bg-main: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --text-main: #0b0b0b;
+            --text-muted: #555555;
+            --border-soft: rgba(0, 0, 0, 0.08);
+            --icon-bg: rgba(0, 0, 0, 0.05);
+        }
+        
+        [data-theme="dark"] {
+            --bg-main: #0b0b0b;
+            --bg-secondary: #050505;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            --border-soft: rgba(255, 255, 255, 0.1);
+            --icon-bg: rgba(255, 255, 255, 0.06);
+        }
         /* === Social Media Footer Icons === */
         .social-footer {
             display: flex;
@@ -53,10 +70,14 @@
         }
 
         body {
+            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top center, rgba(255, 255, 255, 0.03), transparent 45%),
+                linear-gradient(to bottom, var(--bg-main), var(--bg-secondary));
+            min-height: 100vh;
+            transition: background 0.4s ease, color 0.3s ease;
         }
 
         body::before {
@@ -354,14 +375,27 @@
         }
 
         footer {
-            padding: 40px 50px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid var(--border-soft);
         }
-
-        footer p {
-            color: #666;
+        
+        .social-footer a {
+            background: var(--icon-bg);
+            border: 1px solid var(--border-soft);
+        }
+        
+        .social-footer svg {
+            fill: var(--text-main);
+        }
+        
+        .social-footer a:hover {
+            background: var(--text-main);
+        }
+        
+        .social-footer a:hover svg {
+            fill: var(--bg-main);
+        }
+                footer p {
+                    color: #666;
         }
 
         .glow {
@@ -722,6 +756,7 @@
                 <button class="close-btn" onclick="closeSettings()">×</button>
             </div>
             <div class="settings-section">
+                <button onclick="toggleTheme()">Change Theme</button>
                 <label class="settings-label" data-lang="language">Language</label>
                 <div class="language-grid">
                     <button class="language-btn active" onclick="changeLanguage('en')">
@@ -1255,8 +1290,28 @@
             if (e.target === this) { closeSettings(); }
         });
     </script>
+    <script>
+        // Auto-detect system theme
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute(
+            'data-theme',
+            prefersDark ? 'dark' : 'light'
+        );
+
+        // Manual toggle (used later when you add a button)
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute(
+                'data-theme',
+                current === 'dark' ? 'light' : 'dark'
+            );
+        }
+    </script>
+
+</script>
 </body>
 </html>
+
 
 
 
