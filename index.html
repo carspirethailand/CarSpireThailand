@@ -53,18 +53,26 @@
         }
 
         body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            color: #ffffff;
-        
-            /* Premium subtle background */
-            background:
-                radial-gradient(circle at top center, rgba(255, 255, 255, 0.04), transparent 45%),
-                linear-gradient(to bottom, #0b0b0b, #050505);
-        
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
         }
 
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255,255,255,0.015),
+                    rgba(255,255,255,0.015) 1px,
+                    transparent 1px,
+                    transparent 6px
+                );
+            pointer-events: none;
+            z-index: -1;
         }
 
         .ambient-bg {
@@ -1249,6 +1257,7 @@
     </script>
 </body>
 </html>
+
 
 
 
