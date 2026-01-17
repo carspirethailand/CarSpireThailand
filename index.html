@@ -77,7 +77,7 @@
                 radial-gradient(circle at top center, rgba(255, 255, 255, 0.03), transparent 45%),
                 linear-gradient(to bottom, var(--bg-main), var(--bg-secondary));
             min-height: 100vh;
-            transition: background 0.4s ease, color 0.3s ease;
+            transition: background 0.8s ease, color 0.8s ease;
         }
 
         body::before {
@@ -234,13 +234,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeInUp 1s ease-out;
+            transition: all 0.8s ease;
         }
-
+        
         .hero-content p {
             font-size: 24px;
             color: var(--text-muted);
             margin-bottom: 40px;
             animation: fadeInUp 1s ease-out 0.3s backwards;
+            transition: color 0.8s ease;
         }
 
         .cta-button {
@@ -314,7 +316,7 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s;
+            transition: all 0.4s ease, background-color 0.8s ease, border-color 0.8s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -485,21 +487,17 @@
             align-items: center;
             justify-content: space-between;
             gap: 14px;
-        
             padding: 15px;
             border-radius: 10px;
             width: 100%;
             margin-bottom: 25px;
-        
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
-        
             border: 1px solid var(--border-soft);
             background: var(--icon-bg);
             color: var(--text-main);
-        
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
         }
         
         .theme-toggle:hover {
@@ -574,6 +572,7 @@
             transform: translateY(-80px) scale(0.9);
             opacity: 0;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            transition: background-color 0.8s ease, border-color 0.8s ease;
         }
 
         .settings-modal.active .settings-content {
@@ -665,7 +664,7 @@
             border-radius: 10px;
             color: var(--text-main);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease, background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
             font-size: 16px;
             display: flex;
             align-items: center;
@@ -1439,6 +1438,7 @@
 </script>
 </body>
 </html>
+
 
 
 
