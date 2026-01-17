@@ -221,7 +221,7 @@
         .hero-content h1 {
             font-size: 80px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff, #ffd700);
+            background: linear-gradient(135deg, var(--text-main), #ffd700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeInUp 1s ease-out;
@@ -229,7 +229,7 @@
 
         .hero-content p {
             font-size: 24px;
-            color: #aaa;
+            color: var(--text-muted);
             margin-bottom: 40px;
             animation: fadeInUp 1s ease-out 0.3s backwards;
         }
@@ -290,7 +290,7 @@
             font-size: 48px;
             margin-bottom: 60px;
             text-align: center;
-            background: linear-gradient(135deg, #fff, #0095ff);
+            background: linear-gradient(135deg, var(--text-main), #0095ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -354,7 +354,7 @@
         }
 
         .doc-content p {
-            color: #aaa;
+            color: var(--text-muted);
             line-height: 1.6;
             margin-bottom: 20px;
         }
@@ -548,9 +548,9 @@
             transform: translateX(20px);
         }
 
-        .settings-content {
-            background: rgba(30, 30, 30, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+       .settings-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-soft);
             border-radius: 30px;
             padding: 40px;
             max-width: 500px;
@@ -608,7 +608,7 @@
         .close-btn {
             background: none;
             border: none;
-            color: #fff;
+            color: var(--text-main);
             font-size: 30px;
             cursor: pointer;
             padding: 0;
@@ -631,7 +631,7 @@
 
         .settings-label {
             font-size: 16px;
-            color: #aaa;
+            color: var(--text-muted);
             margin-bottom: 15px;
             display: block;
         }
@@ -644,10 +644,10 @@
 
         .language-btn {
             padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--icon-bg);
+            border: 1px solid var(--border-soft);
             border-radius: 10px;
-            color: #fff;
+            color: var(--text-main);
             cursor: pointer;
             transition: all 0.3s;
             font-size: 16px;
@@ -981,10 +981,10 @@
     <section class="featured" id="about">
         <h2 class="section-title">About Us</h2>
         <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-             <p style="font-size: 18px; line-height: 1.8; color: #ccc; text-align: center; margin-bottom: 30px;">
+            <p style="font-size: 18px; line-height: 1.8; color: var(--text-muted); text-align: center; margin-bottom: 30px;">
                 Hello everyone! We welcome you to our automotive knowledge-sharing platform. Today we'll discuss and exchange great information about cars, including basic maintenance, safe driving techniques, and little-known facts that many people may not have known before.
-             </p>
-            <p style="font-size: 18px; line-height: 1.8; color: #ccc; text-align: center;">
+            </p>
+            <p style="font-size: 18px; line-height: 1.8; color: var(--text-muted); text-align: center;">
                 We hope this content will be useful to everyone who loves and is interested in cars. Whether you're a beginner who just started using a car or someone who has been driving for a long time, you can apply the knowledge from us to your daily life.
             </p>
         </div>
@@ -1423,6 +1423,7 @@
 </script>
 </body>
 </html>
+
 
 
 
