@@ -406,6 +406,10 @@
             text-align: center;
             border-top: 1px solid var(--border-soft);
         
+            background: var(--bg-secondary);
+        }
+        
+        [data-theme="dark"] footer {
             background:
                 linear-gradient(
                     to right,
@@ -413,7 +417,7 @@
                     rgba(0, 0, 0, 0.85)
                 );
         }
-
+        
         footer p {
             max-width: 900px;
             font-size: 14px;
@@ -434,15 +438,7 @@
             background: var(--icon-bg);
             border: 1px solid var(--border-soft);
         }
-
-        :root {
-            --text-muted: #6b6b6b;
-        }
-
-        p {
-            color: var(--text-muted);
-        }
-                        
+        
         .social-footer svg {
             fill: var(--text-main);
         }
@@ -454,8 +450,9 @@
         .social-footer a:hover svg {
             fill: var(--bg-main);
         }
-                footer p {
-                    color: #666;
+        
+        footer p {
+            color: #666;
         }
 
         .glow {
@@ -1440,6 +1437,7 @@
 </script>
 </body>
 </html>
+
 
 
 
